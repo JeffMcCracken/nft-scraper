@@ -1,12 +1,13 @@
 import requests
-from bs4 import BeautifulSoup
+from selenium import webdriver
 
 from django.shortcuts import render
 
 def index(request):
-    html_page = requests.get('https://randomearth.io/collections')    
+    driver = webdriver.Chrome()
+    driver.get('https://randomearth.io/collections')
+    title = driver.title
 
-    soup = BeautifulSoup(html_page.text, 'html.parser')
     return render(request, 'app/index.html', {
-        'html': html_page
+        'html': title
     })
